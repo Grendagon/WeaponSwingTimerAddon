@@ -615,7 +615,7 @@ end
 addon_data.hunter.InitializeVisuals = function()
     local settings = character_hunter_settings
     -- Create the frame
-    addon_data.hunter.frame = CreateFrame("Frame", addon_name .. "HunterAutoshotFrame", UIParent)
+    addon_data.hunter.frame = CreateFrame("Frame", addon_name .. "HunterAutoshotFrame", UIParent, BackdropTemplateMixin and "BackdropTemplate")
     local frame = addon_data.hunter.frame
     frame:SetMovable(true)
     frame:EnableMouse(not settings.is_locked)
@@ -623,7 +623,7 @@ addon_data.hunter.InitializeVisuals = function()
     frame:SetScript("OnDragStart", addon_data.hunter.OnFrameDragStart)
     frame:SetScript("OnDragStop", addon_data.hunter.OnFrameDragStop)
     -- Create the backplane
-    frame.backplane = CreateFrame("Frame", addon_name .. "HunterBackdropFrame", frame)
+    frame.backplane = CreateFrame("Frame", addon_name .. "HunterBackdropFrame", frame, BackdropTemplateMixin and "BackdropTemplate")
     frame.backplane:SetPoint('TOPLEFT', -9, 9)
     frame.backplane:SetPoint('BOTTOMRIGHT', 9, -9)
     frame.backplane:SetFrameStrata('BACKGROUND')

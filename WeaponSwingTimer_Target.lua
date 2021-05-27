@@ -423,7 +423,7 @@ end
 addon_data.target.InitializeVisuals = function()
     local settings = character_target_settings
     -- Create the frame
-    addon_data.target.frame = CreateFrame("Frame", addon_name .. "TargetFrame", UIParent)
+    addon_data.target.frame = CreateFrame("Frame", addon_name .. "TargetFrame", UIParent, BackdropTemplateMixin and "BackdropTemplate")
     local frame = addon_data.target.frame
     frame:SetMovable(true)
     frame:EnableMouse(not settings.is_locked)
@@ -431,7 +431,7 @@ addon_data.target.InitializeVisuals = function()
     frame:SetScript("OnDragStart", addon_data.target.OnFrameDragStart)
     frame:SetScript("OnDragStop", addon_data.target.OnFrameDragStop)
     -- Create the backplane
-    frame.backplane = CreateFrame("Frame", addon_name .. "TargetBackdropFrame", frame)
+    frame.backplane = CreateFrame("Frame", addon_name .. "TargetBackdropFrame", frame, BackdropTemplateMixin and "BackdropTemplate")
     frame.backplane:SetPoint('TOPLEFT', -9, 9)
     frame.backplane:SetPoint('BOTTOMRIGHT', 9, -9)
     frame.backplane:SetFrameStrata('BACKGROUND')
