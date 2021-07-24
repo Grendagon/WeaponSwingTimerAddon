@@ -592,7 +592,6 @@ addon_data.core.MissHandler = function(unit, miss_type, is_offhand)
         elseif unit == "target" then
 	    
 		if character_player_settings.parry_self_only_text then
-			addon_data.utils.PrintMsg("In Parry Logic")
 			if UnitName("player") == UnitName("targettarget") then
 				min_swing_time = addon_data.player.main_weapon_speed * 0.2
 				if addon_data.player.main_swing_timer > min_swing_time then
@@ -605,7 +604,6 @@ addon_data.core.MissHandler = function(unit, miss_type, is_offhand)
             			end
 	    		end
 		else
-		addon_data.utils.PrintMsg("NOT IN Parry Logic")
 		min_swing_time = addon_data.player.main_weapon_speed * 0.2
 			if addon_data.player.main_swing_timer > min_swing_time then
                 		addon_data.player.main_swing_timer = min_swing_time
