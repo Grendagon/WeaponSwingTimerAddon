@@ -20,6 +20,7 @@ addon_data.player.default_settings = {
 	is_locked = false,
     show_left_text = true,
     show_right_text = true,
+parry_self_only_text = false,
 	show_offhand = true,
     show_border = true,
     classic_bars = true,
@@ -459,6 +460,7 @@ addon_data.player.UpdateConfigPanelValues = function()
     panel.fill_empty_checkbox:SetChecked(settings.fill_empty)
     panel.show_left_text_checkbox:SetChecked(settings.show_left_text)
     panel.show_right_text_checkbox:SetChecked(settings.show_right_text)
+    panel.show_parry_self_only_text_checkbox:SetChecked(settings.parry_self_only_text)
     panel.width_editbox:SetText(tostring(settings.width))
     panel.width_editbox:SetCursorPosition(0)
     panel.height_editbox:SetText(tostring(settings.height))
@@ -515,6 +517,11 @@ end
 
 addon_data.player.ShowRightTextCheckBoxOnClick = function(self)
     character_player_settings.show_right_text = self:GetChecked()
+    addon_data.player.UpdateVisualsOnSettingsChange()
+end
+
+addon_data.player.ShowParrySelfOnlyTextCheckBoxOnClick = function(self)
+    character_player_settings.parry_self_only_text = self:GetChecked()
     addon_data.player.UpdateVisualsOnSettingsChange()
 end
 
@@ -723,6 +730,15 @@ addon_data.player.CreateConfigPanel = function(parent_panel)
         "Enables the player's right side text.",
         addon_data.player.ShowRightTextCheckBoxOnClick)
     panel.show_right_text_checkbox:SetPoint("TOPLEFT", 10, -160)
+
+-- Parry Self Only
+    panel.show_parry_self_only_text_checkbox = addon_data.config.CheckBoxFactory(
+        "PlayerParrySelfOnlyTextCheckBox",
+        panel,
+        "Parry Self Only",
+        "Parry for player only aka not tanks.",
+        addon_data.player.ShowParrySelfOnlyTextCheckBoxOnClick)
+    panel.show_parry_self_only_text_checkbox:SetPoint("TOPLEFT", 10, -180)
     
     -- Width EditBox
     panel.width_editbox = addon_data.config.EditBoxFactory(
