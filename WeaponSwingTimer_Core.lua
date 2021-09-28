@@ -488,14 +488,14 @@ swing_reset_spells['WARRIOR'] = {
     -- --[[ Bloodthirst ]]
     -- --[[ Challenging Shout ]]
     -- --[[ Charge ]]
-    --[[ Cleave ]]                  845, 7369, 11608, 11609, 20569,
+    --[[ Cleave ]]                  845, 7369, 11608, 11609, 20569, 25231,
     -- --[[ Death Wish ]]
     -- --[[ Defensive Stance ]]
     -- --[[ Demoralizing Shout ]]
     -- --[[ Disarm ]]
     -- --[[ Execute ]]
     -- --[[ Hamstring ]]
-    --[[ Heroic Strike ]]           78, 284, 285, 1608, 11564, 11565, 11566, 11567, 25286,
+    --[[ Heroic Strike ]]           78, 284, 285, 1608, 11564, 11565, 11566, 11567, 25286, 29707,
     -- --[[ Intercept ]]
     -- --[[ Intimidating Shout ]]
     -- --[[ Last Stand ]]
@@ -515,7 +515,7 @@ swing_reset_spells['WARRIOR'] = {
     -- --[[ Shoot Bow ]]
     -- --[[ Shoot Crossbow ]]
     -- --[[ Shoot Gun ]]
-    --[[ Slam ]]                    1464, 8820, 11604, 11605
+    --[[ Slam ]]                    1464, 8820, 11604, 11605, 25242
     -- --[[ Sunder Armor ]]
     -- --[[ Sweeping Strikes ]]
     -- --[[ Taunt ]]
@@ -590,15 +590,30 @@ addon_data.core.MissHandler = function(unit, miss_type, is_offhand)
                 addon_data.player.ResetOffSwingTimer()
             end
         elseif unit == "target" then
-            min_swing_time = addon_data.player.main_weapon_speed * 0.2
-            if addon_data.player.main_swing_timer > min_swing_time then
-                addon_data.player.main_swing_timer = min_swing_time
-            end
-            if not is_offhand then
-                addon_data.target.ResetMainSwingTimer()
-            else
-                addon_data.target.ResetOffSwingTimer()
-            end
+	    
+		if character_player_settings.parry_self_only_text then
+			if UnitName("player") == UnitName("targettarget") then
+				min_swing_time = addon_data.player.main_weapon_speed * 0.2
+				if addon_data.player.main_swing_timer > min_swing_time then
+                			addon_data.player.main_swing_timer = min_swing_time
+            			end
+            			if not is_offhand then
+                			addon_data.target.ResetMainSwingTimer()
+            			else
+                			addon_data.target.ResetOffSwingTimer()
+            			end
+	    		end
+		else
+		min_swing_time = addon_data.player.main_weapon_speed * 0.2
+			if addon_data.player.main_swing_timer > min_swing_time then
+                		addon_data.player.main_swing_timer = min_swing_time
+            		end
+            		if not is_offhand then
+                		addon_data.target.ResetMainSwingTimer()
+            		else
+                		addon_data.target.ResetOffSwingTimer()
+            		end
+		end
         else
             addon_data.utils.PrintMsg("Unexpected Unit Type in MissHandler().")
         end
